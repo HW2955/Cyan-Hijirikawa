@@ -1,0 +1,204 @@
+this.bot.on('guildCreate', async (guild) => {
+   await this.Game.loadGuildConfig(guild.id);
+   await this.discord.manageGuildChannels(guild);
+   guild.members
+    .filter(member => !member.user.bot && member.presence.status !== 'offline' && this.Game.dbClass().shouldBeInList(member.id, member.guild.id))
+    .map(member => Object.assign({}, {
+     name: member.nickname ? member.nickname : member.displayName,
+     discordId: member.id,
+     guildId: guild.id,
+    }))
+    .forEach(member => this.onlinePlayers.set(member.discordId + member.guildId, member));
+  });
+
+
+
+
+this.bot.on('guildMemberAdd', async (member) => {
+   if (member.presence.status !== 'offline') {
+    if (await this.Game.dbClass().shouldBeInList(member.id + member.guild.id, member.guild.id)) {
+     if (!this.onlinePlayers.has(member.id + member.guild.id)) {
+      this.onlinePlayers.set(member.id + member.guild.id, {
+       name: member.nickname ? member.nickname : member.displayName,
+       discordId: member.id,
+       guildId: member.guild.id,
+      });
+     }
+    }
+   }
+
+   if (member.guild.id !== guildID) {
+    return;
+   }
+
+   const welcomeChannel = await member.guild.channels.find(channel => channel.name === 'newcomers' && channel.type === 'text');
+   if (welcomeChannel) {
+    welcomeChannel.send(`Welcome ${member}! This server has an Idle-RPG bot! If you have any questions check the <#${member.guild.channels.find(channel => channel.name === 'faq' && channel.type === 'text').id}> or PM me !help.`);
+    welcomeLog.info(member);
+   }
+  });
+
+
+
+
+
+
+if (await this.Game.dbClass().shouldBeInList(newMember.id, newMember.guild.id)) {
+ if (!this.onlinePlayers.has(newMember.id + newMember.guild.id)) {
+  this.onlinePlayers.set(newMember.id + newMember.guild.id, {
+   name: newMember.nickname ? newMember.nickname : newMember.displayName,
+   discordId: newMember.id
+
+
+
+
+
+new Discord.Guild(clientdata);
+
+
+
+
+
+
+
+```js
+const Discord = require('discord.js');
+const RichEmbed = Discord.RichEmbed;
+module.exports.run = async(bot, msg, args) = > {
+    const user = module.exports.findUser(args, msg);
+
+    if (user == undefined) {
+        const embed = new RichEmbed().setTitle('User Info').setDescription('Could not find username!').setColor([255, 51, 15]);
+
+        msg.channel.send({
+            embed
+        });
+        return true;
+    }
+
+    const guild = msg.channel.type == 'text';
+
+    var info = {
+        username: user.username,
+        tag: user.tag,
+        presence: user.presence,
+        id: user.id,
+        avatar: user.displayAvatarURL,
+        created: user.createdAt,
+        bot: user.bot,
+        note: user.note
+    };
+
+    if (guild) {
+        var gm = msg.guild.members.find('id', info.id);
+        info.displayName = user.displayName;
+        info.roles = gm.roles.map(i = > {
+            return i.name;
+        });
+        info.roles[0] = 'Everyone';
+        info.joinDate = gm.joinedAt;
+        info.bannable = gm.bannable;
+        info.kickable = gm.kickable;
+
+        info.created = user.user.createdAt;
+        info.note = user.user.note;
+        info.username = user.user.username;
+        info.bot = user.user.bot;
+        info.tag = user.user.tag;
+        info.avatar = user.user.displayAvatarURL;
+    }
+
+    info.mutalServers = [];
+
+    Client.guilds.forEach((item, index) = >   {
+        var member = item.members.find('id', info.id);
+        if (!member) return;
+
+        return info.mutalServers.push(item.name);
+    });
+
+    var embed = new RichEmbed().setAuthor(info.tag, info.avatar).setTimestamp().setColor([25, 255, 25]).addField('User', (guild ? info.displayName : info.username), true).addField('ID', info.id, true).addField('Bot', info.bot, true).addField('Creation Date', info.created, true).addField('Note', info.note, true);
+
+    if (guild) {
+        embed = embed.addField('Join Date', info.joinDate, true);
+    }
+
+    embed = embed.addField('Mutal Servers', info.mutalServers.length !== 0 ? info.mutalServers.join(', ') : 'None', true);
+
+    if (guild) {
+        embed = embed.addField('Roles', info.roles.join(', '), true);
+    }
+
+    this.cmd.msg.channel.send({
+        embed
+    });
+    return true;
+
+
+}
+
+module.exports.findUser = (args, msg) = > {
+    const command = args.shift();
+    var needle = this.cmd.args.join(' ');
+
+    if (this.cmd.msg.channel.type == 'text') {
+        // Checking TAG
+        var user = msg.mentions.members.first();
+        if (user !== undefined) return user;
+        // Check ID
+        if (/^\d+$/.test(needle)) user = msg.guild.members.find('id', needle);
+
+        if (user !== undefined) return user;
+
+        // Check Name
+        var arr = [];
+        msg.guild.members.map(i = > {
+            if (i.displayName.toLowerCase().startsWith(needle.toLowerCase())) return arr.push(i);
+
+            if (i.displayName.toLowerCase().endsWith(needle.toLowerCase())) return arr.push(i);
+
+            if (i.user.username.toLowerCase().startsWith(needle.toLowerCase())) return arr.push(i);
+
+            if (i.user.username.toLowerCase().endsWith(needle.toLowerCase())) return arr.push(i);
+        });
+
+        if (arr.length !== 0) return arr[0];
+
+        return undefined;
+    } else if (this.cmd.msg.channel.type == 'group') {
+        // Checking TAG
+        var user = msg.mentions.users.first();
+        if (user !== undefined) return user;
+        // Check ID
+        if (/^\d+$/.test(needle)) user = msg.channel.recipients.find('id', needle);
+
+        if (user !== undefined) return user;
+
+        // Check Name
+        var arr = [];
+        msg.channel.recipients.map(i = > {
+            if (i.username.toLowerCase().startsWith(needle.toLowerCase())) return arr.push(i);
+
+            if (i.username.toLowerCase().endsWith(needle.toLowerCase())) return arr.push(i);
+        });
+
+        if (arr.length !== 0) return arr[0];
+
+        return undefined;
+    } else {
+        var users = [];
+        Client.users.map(i = > {
+            if (i.username.toLowerCase().startsWith(needle.toLowerCase())) return users.push(i);
+
+            if (i.username.toLowerCase().endsWith(needle.toLowerCase())) return users.push(i);
+        });
+
+        if (users.length > 0) return users[0];
+
+        return undefined;
+    }
+}
+
+module.exports.help = {
+    name: "userinfo"
+}```
