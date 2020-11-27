@@ -22,14 +22,14 @@ module.exports = {
 
 			let AuthorDisplayName = message.member.displayName
 
-			message.channel.send(`:sparkling_heart: ${AuthorDisplayName} Ruined ${SendMessage} Hair :sparkling_heart:`);
+			message.channel.send(`:angry: ${AuthorDisplayName} Ruined ${SendMessage} Hair :angry:`);
 
 		} else {
 
             let MentionDisplayName = message.guild.member(message.mentions.users.first()).displayName
 			let AuthorDisplayName = message.member.displayName
 			
-			message.channel.send(`:sparkling_heart: ${AuthorDisplayName} Ruined ${MentionDisplayName} Hair :sparkling_heart:`);
+			message.channel.send(`:angry: ${AuthorDisplayName} Ruined ${MentionDisplayName} Hair :angry:`);
 
 		}
 	},

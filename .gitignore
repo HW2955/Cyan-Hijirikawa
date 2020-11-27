@@ -2,3 +2,6 @@
 *.bat
 node_modules/
 Database/
+beta_shit/
+Show_By_Rock/
+resources/

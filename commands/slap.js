@@ -5,8 +5,8 @@ const Clenght = CommandFile.length
 let Word = "badword"
 
 module.exports = {
-	name: 'bump',
-	description: 'Bump into someone',
+	name: 'slap',
+	description: 'slap someone!',
 	execute(message)
 	{
 		if (!message.mentions.users.size) {
@@ -22,14 +22,14 @@ module.exports = {
 
 			let AuthorDisplayName = message.member.displayName
 
-			message.channel.send(`:sparkling_heart: ${AuthorDisplayName} Bumped into ${SendMessage} :sparkling_heart:`);
+			message.channel.send(`:angry: ${AuthorDisplayName} Slapped ${SendMessage} :angry:`);
 
 		} else {
 
             let MentionDisplayName = message.guild.member(message.mentions.users.first()).displayName
 			let AuthorDisplayName = message.member.displayName
 			
-			message.channel.send(`:sparkling_heart: ${AuthorDisplayName} Bumped into ${MentionDisplayName} :sparkling_heart:`);
+			message.channel.send(`:angry: ${AuthorDisplayName} Slapped ${MentionDisplayName} :angry:`);
 
 		}
 	},
