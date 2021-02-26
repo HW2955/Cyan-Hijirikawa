@@ -11,7 +11,7 @@ module.exports = {
 	{
 		if (!message.mentions.users.size) {
 
-			let SendMessage = message.content.slice(Clenght +1);
+			let SendMessage = message.content.slice(Clenght);
 			let SendMessageLow = SendMessage.toLowerCase();
 
 			if (SendMessageLow.includes(Word)) { // super basic word filter checking if message is a "BadWord" and if so then deletes message

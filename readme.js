@@ -13,12 +13,12 @@ ping #done
 note #done
 
 
-kick #partially done
+kick #done
 rejoinkick *^
 mute #done
 purge ##rewrite
 dm
-ban #done
+ban
 unban | make a function in *ban after perms checks
 cyanbump #partially done add channel mention check
 say

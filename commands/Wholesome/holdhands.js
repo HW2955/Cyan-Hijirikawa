@@ -5,13 +5,13 @@ const Clenght = CommandFile.length
 let Word = "badword"
 
 module.exports = {
-	name: 'cuddle',
-	description: 'cuddle someone!',
+	name: 'holdhands',
+	description: 'hug someone!',
 	execute(message)
 	{
 		if (!message.mentions.users.size) {
 
-			let SendMessage = message.content.slice(Clenght +1);
+			let SendMessage = message.content.slice(Clenght);
 			let SendMessageLow = SendMessage.toLowerCase();
 
 			if (SendMessageLow.includes(Word)) { // super basic word filter checking if message is a "BadWord" and if so then deletes message
@@ -22,14 +22,14 @@ module.exports = {
 
 			let AuthorDisplayName = message.member.displayName
 
-			message.channel.send(`:sparkling_heart: ${AuthorDisplayName} Cuddles ${SendMessage} :sparkling_heart:`);
+			message.channel.send(`:sparkling_heart: ${AuthorDisplayName} Holds ${SendMessage} Hands :sparkling_heart:`);
 
 		} else {
 
             let MentionDisplayName = message.guild.member(message.mentions.users.first()).displayName
 			let AuthorDisplayName = message.member.displayName
 			
-			message.channel.send(`:sparkling_heart: ${AuthorDisplayName} Cuddles ${MentionDisplayName} :sparkling_heart:`);
+			message.channel.send(`:sparkling_heart: ${AuthorDisplayName} Holds ${MentionDisplayName} Hands :sparkling_heart:`);
 
 		}
 	},
